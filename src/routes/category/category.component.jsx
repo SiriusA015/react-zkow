@@ -4,18 +4,18 @@ import { Link, useParams } from 'react-router-dom';
 
 import ProductCard from '../../components/product-card/product-card.component';
 
-import { selectCategoriesMap } from '../../store/categories/category.selector';
+import { selectCategoriesLocalList, selectCategoriesMap } from '../../store/categories/category.selector';
 
 import { CategoryContainer, Title, Breadcrumbs, Crumb} from './category.styles';
 
 const Category = () => {
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
-  const [products, setProducts] = useState(categoriesMap[category]);
-
+  const categoriesLocal = useSelector(selectCategoriesLocalList);
+  const [products, setProducts] = useState(categoriesLocal[category]);
   useEffect(() => {
-    setProducts(categoriesMap[category]);
-  }, [category, categoriesMap]);
+    setProducts(categoriesLocal[category]);
+  }, [category, categoriesLocal]);
 
   return (
     <Fragment>
@@ -31,7 +31,7 @@ const Category = () => {
       <CategoryContainer>
         {products &&
           products.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard title={category} product={product} />
           ))}
       </CategoryContainer>
     </Fragment>

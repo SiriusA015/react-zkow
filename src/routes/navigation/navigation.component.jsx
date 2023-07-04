@@ -71,7 +71,7 @@ const Navigation = () => {
                   onBlur={() => setDropdownOpen(false)}
                 >
                   <DropdownMenuItem>
-                    <NavLink to='/sklep/rośliny' onClick={handleDropdownItemClick}>ROŚLINY</NavLink>
+                    <NavLink to='/sklep/rosliny' onClick={handleDropdownItemClick}>ROŚLINY</NavLink>
                   </DropdownMenuItem>
 
                   <DropdownMenuItem>

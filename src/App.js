@@ -43,7 +43,7 @@ const App = () => {
         <Route path='/' element={<Footer />} />
         <Route index element={<Home />} />
         <Route path='sklep/*' element={<Shop />} />
-        <Route exact path="/sklep/:id" element={<ProductPage />} />
+        <Route exact path="/sklep/:title/:id" element={<ProductPage />} />
         <Route path='mojekonto' element={<Authentication />} />
         <Route path='kasa' element={<Checkout />} />
         <Route path='kontakt' element={<Contact />} />

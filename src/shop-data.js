@@ -462,6 +462,4 @@ const itemsData = SHOP_DATA.reduce((accumulator, category) => {
   return accumulator.concat(items);
 }, []);
 
-console.log(itemsData);
-
 export default SHOP_DATA;

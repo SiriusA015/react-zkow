@@ -1,14 +1,15 @@
 import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectCategoriesMap } from '../../store/categories/category.selector';
+import { selectCategoriesLocalList, selectCategoriesMap } from '../../store/categories/category.selector';
 
 import CategoryPreview from '../../components/category-preview/category-preview.component';
 import {Breadcrumbs, Crumb} from './categories-preview.styles'
 
 const CategoriesPreview = () => {
-  const categoriesMap = useSelector(selectCategoriesMap);
-
+  const categoriesMap = useSelector(selectCategoriesMap);             // get data from database
+  const categoriesLocal = useSelector(selectCategoriesLocalList);     // get data from local file
+   
   return (
     <Fragment>
       <Breadcrumbs>
@@ -16,8 +17,8 @@ const CategoriesPreview = () => {
           <a href="/sklep">Sklep /</a>
         </Crumb>
       </Breadcrumbs>
-      {Object.keys(categoriesMap).map((title) => {
-        const products = categoriesMap[title];
+      {Object.keys(categoriesLocal).map((title) => {
+        const products = categoriesLocal[title];
         return (
           <CategoryPreview key={title} title={title} products={products} />
         );

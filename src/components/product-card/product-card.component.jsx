@@ -13,7 +13,7 @@ import {
   ProductCartInfoContainer
 } from './product-card.styles';
 
-const ProductCard = ({ product }) => {
+const   ProductCard = ({ title, product }) => {
   const { id, name, price, imageUrl } = product;
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <ProductCartContainer>
-      <Link to={`/sklep/${id}`}>
+      <Link to={`/sklep/${title}/${id}`}>
         <img src={imageUrl} alt={`${name}`} />
         <Footer>
           <ProductCartInfoContainer>
