@@ -21,7 +21,7 @@ const Category = () => {
     <Fragment>
       <Breadcrumbs>
         <Crumb>
-          <a href="/sklep">Sklep</a>
+          <Link to="/sklep">Sklep</Link>
         </Crumb>
         <Crumb>
           <a>Kategoria - {category}</a>

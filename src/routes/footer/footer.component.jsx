@@ -10,6 +10,7 @@ import {
   FooterCopy
 } from './footer.styles';
 import DoniczkowcyLogo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -23,13 +24,13 @@ const Footer = () => {
         
         <FooterMenus>
           <FooterMenuList>
-            <FooterMenuListItem><a href="/">Sklep</a></FooterMenuListItem>
-            <FooterMenuListItem><a href="/">Kontakt</a></FooterMenuListItem>
+            <FooterMenuListItem><Link to="/">Sklep</Link></FooterMenuListItem>
+            <FooterMenuListItem><Link to="/">Kontakt</Link></FooterMenuListItem>
           </FooterMenuList>
           <FooterMenuList>
-            <FooterMenuListItem><a href="/sklep">Sklep</a></FooterMenuListItem>
-            <FooterMenuListItem><a href="/mojekonto">Moje konto</a></FooterMenuListItem>
-            <FooterMenuListItem><a href="/kasa">Koszyk</a></FooterMenuListItem>
+            <FooterMenuListItem><Link to="/sklep">Sklep</Link></FooterMenuListItem>
+            <FooterMenuListItem><Link to="/mojekonto">Moje konto</Link></FooterMenuListItem>
+            <FooterMenuListItem><Link to="/kasa">Koszyk</Link></FooterMenuListItem>
           </FooterMenuList>
           <FooterMenuList>
             <FooterMenuListItem><a href="#">Instagram</a></FooterMenuListItem>

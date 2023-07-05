@@ -1,4 +1,3 @@
-import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithRedirect,
@@ -8,7 +7,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-} from 'firebase/auth';
+} from "firebase/auth";
 import {
   getFirestore,
   doc,
@@ -18,23 +17,26 @@ import {
   writeBatch,
   query,
   getDocs,
-} from 'firebase/firestore';
+} from "firebase/firestore";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
-  authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
-  projectId: 'crwn-clothing-db-98d4d',
-  storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
-  messagingSenderId: '626766232035',
-  appId: '1:626766232035:web:506621582dab103a4d08d6',
+  apiKey: "AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk",
+  authDomain: "crwn-clothing-db-98d4d.firebaseapp.com",
+  projectId: "crwn-clothing-db-98d4d",
+  storageBucket: "crwn-clothing-db-98d4d.appspot.com",
+  messagingSenderId: "626766232035",
+  appId: "1:626766232035:web:506621582dab103a4d08d6",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: 'select_account',
+  prompt: "select_account",
 });
 
 export const auth = getAuth();
@@ -59,11 +61,11 @@ export const addCollectionAndDocuments = async (
   });
 
   await batch.commit();
-  console.log('done');
+  console.log("done");
 };
 
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, 'categories');
+  const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
@@ -76,23 +78,23 @@ export const createUserDocumentFromAuth = async (
 ) => {
   if (!userAuth) return;
 
-  const userDocRef = doc(db, 'users', userAuth.uid);
+  const userDocRef = doc(db, "users", userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth;
-    const createdAt = new Date();
-
+    const { email, displayName, phoneNumber } = userAuth;
+    const createdAt = new Date();  
     try {
       await setDoc(userDocRef, {
         displayName,
         email,
+        phoneNumber,
         createdAt,
         ...additionalInformation,
       });
     } catch (error) {
-      console.log('error creating the user', error.message);
+      console.log("error creating the user", error.message);
     }
   }
 
@@ -102,7 +104,35 @@ export const createUserDocumentFromAuth = async (
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
-  return await createUserWithEmailAndPassword(auth, email, password);
+  return await firebase.auth().createUserWithEmailAndPassword(email, password);
+};
+
+export const updateAuthUserProfile = async (user, displayName, phoneNumber) => {  
+  if (!displayName || !phoneNumber) return;
+
+  await user.updateProfile({
+    displayName: displayName,
+  });
+  // const db = await firebase.firestore();
+  // await db.collection("users").doc(user.uid).set({
+  //   displayName: displayName,
+  // });
+  const db = await firebase.firestore();
+  await db.collection("users").doc(user.uid).set({
+    phoneNumber: phoneNumber,
+  });
+};
+
+export const getAuthUserPhoneNumber = async (user) => {
+  const userRef = await firebase.firestore().collection("users").doc(user.uid);
+  const userDoc = await userRef.get();
+
+  if (userDoc.exists) {
+    const phone = await userDoc.data().phoneNumber;
+    const name = await userDoc.data().displayName;
+
+    return { phone, name};
+  }
 };
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {

@@ -18,6 +18,8 @@ import Footer from './routes/footer/footer.component';
 import Product from './routes/product/product.component';
 import WelcomeScreen from './components/welcomeScreen/welcomeScreen.component';
 import ProductPage from './routes/product/product.component';
+import OrderConfirmation from './routes/order-confirmation/order-confirmation.component';
+import ConfirmationPage from './routes/confirmation/confirmation.component';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,6 +50,8 @@ const App = () => {
         <Route path='kasa' element={<Checkout />} />
         <Route path='kontakt' element={<Contact />} />
         <Route path='produkt' element={<Product />} />
+        <Route path='potwierdzenie' element={<ConfirmationPage />} />
+        {/* <Route path='potwierdzenie' element={<OrderConfirmation />} /> */}
       </Route>
     </Routes>
   );

@@ -1,22 +1,31 @@
-import { useSelector } from 'react-redux';
-
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   selectCartItems,
   selectCartTotal,
-} from '../../store/cart/cart.selector';
+} from "../../store/cart/cart.selector";
 
-import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 
 import {
   CheckoutContainer,
   CheckoutHeader,
   HeaderBlock,
   Total,
-} from './checkout.styles';
+  ConfirmBtn,
+} from "./checkout.styles";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
+
+  const navigate = useNavigate();
+
+  const goToConfirmation = () => {
+    if (cartTotal > 0) {
+      navigate("/potwierdzenie");
+    }
+  };
 
   return (
     <CheckoutContainer>
@@ -41,6 +50,7 @@ const Checkout = () => {
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <Total>Suma: {cartTotal},00 PLN</Total>
+      <ConfirmBtn onClick={goToConfirmation}>Potwierdź zamówienie</ConfirmBtn>
     </CheckoutContainer>
   );
 };

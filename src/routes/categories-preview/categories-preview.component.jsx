@@ -5,6 +5,7 @@ import { selectCategoriesLocalList, selectCategoriesMap } from '../../store/cate
 
 import CategoryPreview from '../../components/category-preview/category-preview.component';
 import {Breadcrumbs, Crumb} from './categories-preview.styles'
+import { Link } from 'react-router-dom';
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);             // get data from database
@@ -14,7 +15,7 @@ const CategoriesPreview = () => {
     <Fragment>
       <Breadcrumbs>
         <Crumb>
-          <a href="/sklep">Sklep /</a>
+          <Link to="/sklep">Sklep /</Link>
         </Crumb>
       </Breadcrumbs>
       {Object.keys(categoriesLocal).map((title) => {

@@ -10,16 +10,23 @@ import {
   Crumb,
   FormWrapper
 } from './authentication.styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoggedIn } from '../../store/user/user.selector';
+import { setLoggedIn } from '../../store/user/user.reducer';
 
 const Authentication = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const loggedIn = useSelector(selectLoggedIn); 
+  const dispatch = useDispatch();
 
   const handleLoginSuccess = () => {
-    setLoggedIn(true);
+    // setLoggedIn(true);
+    dispatch(setLoggedIn(true));  
   };
 
   const handleLogout = () => {
-    setLoggedIn(false);
+    // setLoggedIn(false);
+    dispatch(setLoggedIn(false));
   };
 
   return (

@@ -21,10 +21,11 @@ import {
 import Pet from "../../assets/pet.png";
 import Watering from "../../assets/watering-plants.png";
 import Sun from "../../assets/sunlight.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCategoriesLocalList } from "../../store/categories/category.selector";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { addItemToCart } from "../../store/cart/cart.reducer";
 
 const Product = () => {
   const categoriesLocal = useSelector(selectCategoriesLocalList);
@@ -44,18 +45,20 @@ const Product = () => {
       }
     }
   }, [categoriesLocal]);
+  const dispatch = useDispatch();
+  const addProductToCart = () => dispatch(addItemToCart(product));
 
   return (
     <div>
       <Breadcrumbs>
         <Crumb>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </Crumb>
         <Crumb>
-          <a href="/sklep">Sklep</a>
+          <Link to="/sklep">Sklep</Link>
         </Crumb>
         <Crumb>
-          <a href={`/sklep/${title}`}>{title}</a>
+          <Link to={`/sklep/${title}`}>{title}</Link>
         </Crumb>
         <Crumb>
           <a>{id}</a>
@@ -76,7 +79,9 @@ const Product = () => {
         </ProductInfoImage>
         <ProductInfoContent>
           <div>
-            <ProductCategoryLink to={`/sklep/${title}`}>{title}</ProductCategoryLink>
+            <ProductCategoryLink to={`/sklep/${title}`}>
+              {title}
+            </ProductCategoryLink>
             <ProductTitle>{product.name}</ProductTitle>
             <ProductPrice>{product.price}</ProductPrice>
             <ProductDesc>
@@ -123,7 +128,7 @@ const Product = () => {
           </div>
           <div>
             <Counter>- 1 +</Counter>
-            <Button>Dodaj do koszyka</Button>
+            <Button onClick={addProductToCart}>Dodaj do koszyka</Button>
           </div>
         </ProductInfoContent>
       </ProductInfo>

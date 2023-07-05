@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from "../../components/button/button.component";
 
 export const CheckoutContainer = styled.div`
   width: 55%;
@@ -31,3 +32,7 @@ export const Total = styled.span`
   margin-left: auto;
   font-size: 36px;
 `;
+
+export const ConfirmBtn = styled(Button)`
+  margin-top: 50px;
+`
